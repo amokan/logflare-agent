@@ -8,7 +8,7 @@ defmodule LFAgent.Application do
       Application.get_env(:lfagent, :sources)
       |> Enum.map(fn %{path: path, source: source} ->
         worker_id = String.to_atom(path)
-        worker(LFAgent.Main, [%{id: worker_id, filename: path, source: source}], id: worker_id)
+        worker(LFAgent.LogWatcher, [%{id: worker_id, filename: path, source: source}], id: worker_id)
       end)
 
     opts = [strategy: :one_for_one, name: LFAgent.Supervisor]
